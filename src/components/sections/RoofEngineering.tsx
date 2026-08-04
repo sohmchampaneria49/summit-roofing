@@ -103,12 +103,12 @@ useEffect(() => {
 }, []);
 
 const imageCache = useRef<HTMLImageElement[]>([]);
-const animationRef = useRef<number>();
-
+const animationRef = useRef<number | null>(null);
 const animateFrames = (start: number, end: number) => {
 
-  cancelAnimationFrame(animationRef.current!);
-
+if (animationRef.current !== null) {
+  cancelAnimationFrame(animationRef.current);
+}
   let frame = currentFrame;
 
   const direction = frame < end ? 1 : -1;
