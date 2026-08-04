@@ -70,17 +70,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenInspectionModal }) => {
               </div>
             </a>
 
-            {/* Desktop Center Status Badge */}
-            <div
-              className={`hidden lg:flex items-center gap-2 px-4 py-1.5 rounded-full border backdrop-blur-md text-xs font-mono transition-colors ${
-                scrolled
-                  ? "bg-[#F8F8F5] border-[#E5E7EB] text-[#6B7280]"
-                  : "bg-white/10 border-white/15 text-zinc-300"
-              }`}
-            >
-              <span className="h-2 w-2 rounded-full bg-[#F97316] animate-pulse" />
-              <span>Priority Schedule Active</span>
-            </div>
+           
+           
 
             {/* Navigation Links */}
             <nav className="hidden md:flex items-center gap-7">

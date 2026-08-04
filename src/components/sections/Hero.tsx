@@ -16,6 +16,41 @@ interface HeroProps {
   onOpenInspectionModal?: () => void;
 }
 
+const heroScenes = [
+  {
+    start: 0,
+    end: 59,
+    title: "Built to Protect.",
+    accent: "Crafted to Last.",
+    subtitle:
+      "Premium roofing solutions engineered for modern homes."
+  },
+  {
+    start: 60,
+    end: 119,
+    title: "Every Layer Matters.",
+    accent: "Protection Starts Below.",
+    subtitle:
+      "Waterproof barriers, underlayment and precision installation."
+  },
+  {
+    start: 120,
+    end: 179,
+    title: "Precision Installation.",
+    accent: "Built for Every Storm.",
+    subtitle:
+      "Premium architectural shingles installed with expert craftsmanship."
+  },
+  {
+    start: 180,
+    end: 299,
+    title: "Protection That Lasts.",
+    accent: "Ready for Decades.",
+    subtitle:
+      "A roof engineered to protect your home for years to come."
+  }
+];
+
 export const Hero: React.FC<HeroProps> = ({ onOpenInspectionModal }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -24,6 +59,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInspectionModal }) => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
+  const currentScene = heroScenes.find(
+  (scene) =>
+    currentFrameIndex >= scene.start &&
+    currentFrameIndex <= scene.end
+);
 
   const imagesRef = useRef<(HTMLImageElement | null)[]>([]);
   const frameObjRef = useRef({ frame: 0 });
@@ -205,40 +245,26 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInspectionModal }) => {
       />
 
       {/* Dark Overlay for Hero */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#0B0F14] via-[#0B0F14]/50 to-[#0B0F14]/30 pointer-events-none" />
-      <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_center,_transparent_0%,_#0B0F14_100%)] opacity-70 pointer-events-none" />
+<div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#0B0F14]/35 via-[#0B0F14]/15 to-transparent pointer-events-none" />      <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_center,_transparent_0%,_#0B0F14_100%)] opacity-70 pointer-events-none" />
 
       {/* Content Container */}
       <div className="relative z-10 max-w-5xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex flex-col justify-between pt-24 pb-12 text-center pointer-events-auto">
         
         {/* Top Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/15 backdrop-blur-md self-center shadow-lg"
-        >
-          <Sparkles className="w-3.5 h-3.5 text-[#F97316]" />
-          <span className="text-xs font-mono tracking-wider text-zinc-300">
-            Interactive Roof Engineering
-          </span>
-          <span className="w-1.5 h-1.5 rounded-full bg-[#F97316]" />
-          <span className="text-xs font-mono text-zinc-400">
-            Frame {currentFrameIndex + 1} / {frames.length || 300}
-          </span>
-        </motion.div>
-
+     
         {/* Center Content */}
-        <div className="flex flex-col items-center my-auto max-w-3xl">
-          <div className="overflow-hidden mb-6">
+<div className="flex flex-col items-center my-auto max-w-3xl w-full mx-auto">          <div className="overflow-hidden mb-6">
             <motion.h1
               initial={{ opacity: 0, y: 60 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="font-display text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08]"
             >
-              Built to Protect. <br />
-              <span className="text-gradient-copper inline-block">Crafted to Last.</span>
+          {currentScene?.title}
+<br />
+<span className="text-gradient-copper inline-block">
+  {currentScene?.accent}
+</span>
             </motion.h1>
           </div>
 
