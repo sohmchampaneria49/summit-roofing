@@ -13,9 +13,16 @@ interface LayerDetail {
   name: string;
   category: string;
   description: string;
-  icon: React.ReactNode;
-  color: string;
-  stats: {
+
+  specs: string;
+  windRating: string;
+  lifespan: string;
+  efficiency: string;
+
+  icon?: React.ReactNode;
+  color?: string;
+
+  stats?: {
     label: string;
     value: string;
   }[];
