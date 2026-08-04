@@ -211,64 +211,7 @@ if (animationRef.current !== null) {
 />
 
               {/* Dynamic Layer Specs */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeLayer.id}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.3 }}
-                  className="space-y-6"
-                >
-                  <div className="flex items-center justify-between border-b border-[#E5E7EB] pb-4">
-                    <div>
-                      <span className="text-xs font-mono text-[#F97316] uppercase font-bold tracking-wider">
-                        {activeLayer.category}
-                      </span>
-                      <h3 className="font-display text-2xl font-bold text-[#121212] mt-1">
-                        {activeLayer.name}
-                      </h3>
-                      <p className="text-xs text-[#F97316] font-mono mt-2">
-  Frames: {activeLayer.startFrame} - {activeLayer.endFrame}
-</p>
-                    </div>
-                    <div className="px-3 py-1.5 rounded-lg bg-[#F97316]/10 text-xs font-mono text-[#F97316] font-bold">
-                      Layer 0{activeLayer.id} Selected
-                    </div>
-                  </div>
-
-                  <p className="text-base text-[#4B5563] leading-relaxed">{activeLayer.description}</p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                    <div className="p-4 rounded-2xl bg-[#F8F8F5] border border-[#E5E7EB]">
-                      <div className="flex items-center gap-2 text-[#6B7280] text-xs mb-1">
-                        <Wind className="w-3.5 h-3.5 text-[#F97316]" /> Wind Resistance
-                      </div>
-                      <span className="font-display font-extrabold text-[#121212] text-base">
-                        {activeLayer.windRating}
-                      </span>
-                    </div>
-
-                    <div className="p-4 rounded-2xl bg-[#F8F8F5] border border-[#E5E7EB]">
-                      <div className="flex items-center gap-2 text-[#6B7280] text-xs mb-1">
-                        <ShieldCheck className="w-3.5 h-3.5 text-[#F97316]" /> Expected Lifespan
-                      </div>
-                      <span className="font-display font-extrabold text-[#121212] text-base">
-                        {activeLayer.lifespan}
-                      </span>
-                    </div>
-
-                    <div className="p-4 rounded-2xl bg-[#F8F8F5] border border-[#E5E7EB]">
-                      <div className="flex items-center gap-2 text-[#6B7280] text-xs mb-1">
-                        <Thermometer className="w-3.5 h-3.5 text-[#F97316]" /> Performance
-                      </div>
-                      <span className="font-display font-extrabold text-[#121212] text-base">
-                        {activeLayer.efficiency}
-                      </span>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+          
             </div>
           </div>
         </div>

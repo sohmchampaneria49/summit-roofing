@@ -293,17 +293,7 @@ const canvasRef = useRef<HTMLCanvasElement>(null);
               </span>
             </MagneticButton>
 
-            <MagneticButton
-              onClick={() => setIsVideoModalOpen(true)}
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-white/10 hover:bg-white/15 text-white font-semibold text-base border border-white/20 backdrop-blur-md transition-colors"
-            >
-              <span className="flex items-center justify-center gap-2.5">
-                <div className="w-6 h-6 rounded-full bg-[#F97316]/20 flex items-center justify-center border border-[#F97316]/50">
-                  <Play className="w-3 h-3 text-[#F97316] fill-[#F97316] ml-0.5" />
-                </div>
-                Watch Our Story
-              </span>
-            </MagneticButton>
+           
           </motion.div>
         </div>
 
