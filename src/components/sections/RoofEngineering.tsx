@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Layers, ShieldCheck, Cpu, Wind, Thermometer, Sparkles, ChevronRight } from "lucide-react";
 
@@ -17,7 +17,10 @@ interface LayerDetail {
 
 const engineeringLayers: LayerDetail[] = [
   {
+    
     id: 1,
+    startFrame: 0,
+    endFrame: 59,
     name: "Architectural Shingles",
     category: "Primary Defense Layer",
     specs: "Multi-Layered Laminated Fiberglass & Heavy Asphalt Matrix",
@@ -28,6 +31,8 @@ const engineeringLayers: LayerDetail[] = [
   },
   {
     id: 2,
+    startFrame: 60,
+endFrame: 110,
     name: "Waterproof Underlayment",
     category: "Secondary Protection",
     specs: "High-Temp Synthetic Polymer Slip-Resistant Barrier",
@@ -38,6 +43,8 @@ const engineeringLayers: LayerDetail[] = [
   },
   {
     id: 3,
+    startFrame: 110,
+endFrame: 130,
     name: "Ice & Water Shield",
     category: "Critical Junction Membrane",
     specs: "Self-Adhered Rubberized Asphalt Waterproof Membrane",
@@ -46,18 +53,11 @@ const engineeringLayers: LayerDetail[] = [
     efficiency: "Self-Sealing Fastener Seals",
     description: "Seals around fasteners to protect roof valleys, eaves, and eaves troughs from ice dams and wind-driven rain infiltration.",
   },
+ 
   {
     id: 4,
-    name: "Ridge Ventilation",
-    category: "Airflow & Thermal Balance",
-    specs: "Concealed Continuous Ridge Vent System",
-    windRating: "Baffled Wind-Driven Rain Guard",
-    lifespan: "Lifetime System",
-    efficiency: "+30% Attic Airflow Exchange",
-    description: "Maintains optimal attic temperature and air circulation, extracting heat and moisture to extend roof life and lower energy costs.",
-  },
-  {
-    id: 5,
+    startFrame: 140,
+endFrame: 299,
     name: "Precision Metal Flashing",
     category: "Custom Edge Detailing",
     specs: "Heavy-Gauge Galvanized Steel / Architectural Solid Copper",
@@ -70,7 +70,56 @@ const engineeringLayers: LayerDetail[] = [
 
 export const RoofEngineering: React.FC = () => {
   const [activeLayer, setActiveLayer] = useState<LayerDetail>(engineeringLayers[0]);
+const [currentFrame, setCurrentFrame] = useState(0);
+useEffect(() => {
 
+  const images: HTMLImageElement[] = [];
+
+  for (let i = 1; i <= 300; i++) {
+
+    const img = new Image();
+
+    img.src = `/frames/ezgif-frame-${String(i).padStart(3, "0")}.jpg`;
+
+    images.push(img);
+
+  }
+
+  imageCache.current = images;
+
+}, []);
+
+const imageCache = useRef<HTMLImageElement[]>([]);
+const animationRef = useRef<number>();
+
+const animateFrames = (start: number, end: number) => {
+
+  cancelAnimationFrame(animationRef.current!);
+
+  let frame = currentFrame;
+
+  const direction = frame < end ? 1 : -1;
+
+  const animate = () => {
+
+    frame += direction;
+
+    setCurrentFrame(frame);
+
+    if (
+      (direction > 0 && frame < end) ||
+      (direction < 0 && frame > end)
+    ) {
+
+      animationRef.current = requestAnimationFrame(animate);
+
+    }
+
+  };
+
+  animationRef.current = requestAnimationFrame(animate);
+
+};
   return (
     <section id="engineering" className="relative py-28 sm:py-36 bg-[#F8F8F5] border-t border-[#E5E7EB]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -98,7 +147,11 @@ export const RoofEngineering: React.FC = () => {
               return (
                 <button
                   key={layer.id}
-                  onClick={() => setActiveLayer(layer)}
+                  onClick={() => {
+  setActiveLayer(layer);
+
+  animateFrames(layer.startFrame, layer.endFrame);
+}}
                   className={`w-full p-4 sm:p-5 rounded-2xl text-left transition-all duration-300 flex items-center justify-between group ${
                     isSelected
                       ? "bg-white border-2 border-[#F97316] shadow-lg shadow-[#F97316]/10"
@@ -138,36 +191,11 @@ export const RoofEngineering: React.FC = () => {
           <div className="lg:col-span-7">
             <div className="rounded-3xl bg-white p-8 sm:p-10 border border-[#E5E7EB] shadow-md relative overflow-hidden">
               {/* Interactive Layer Visual */}
-              <div className="relative h-64 sm:h-72 w-full rounded-2xl overflow-hidden bg-[#F8F8F5] border border-[#E5E7EB] flex items-center justify-center mb-8">
-                <div className="relative w-full max-w-sm h-48 flex flex-col justify-center space-y-2.5 px-6">
-                  {engineeringLayers.map((layer) => {
-                    const isActive = layer.id === activeLayer.id;
-                    return (
-                      <motion.div
-                        key={layer.id}
-                        animate={{
-                          scale: isActive ? 1.03 : 0.98,
-                          x: isActive ? 10 : 0,
-                          opacity: isActive ? 1 : 0.4,
-                        }}
-                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                        className={`h-9 rounded-xl border flex items-center px-4 justify-between transition-colors ${
-                          isActive
-                            ? "bg-[#F97316] border-[#F97316] text-white shadow-md shadow-[#F97316]/20 font-bold"
-                            : "bg-white border-[#E5E7EB] text-[#6B7280]"
-                        }`}
-                      >
-                        <span className="text-xs font-mono">Layer 0{layer.id}: {layer.name}</span>
-                        {isActive && <Sparkles className="w-4 h-4 text-white" />}
-                      </motion.div>
-                    );
-                  })}
-                </div>
-
-                <div className="absolute top-4 right-4 text-[11px] font-mono text-[#6B7280] bg-white px-3 py-1 rounded-full border border-[#E5E7EB]">
-                  Interactive Component
-                </div>
-              </div>
+              <img
+    src={`/frames/ezgif-frame-${String(currentFrame + 1).padStart(3, "0")}.jpg`}
+    className="w-full h-full object-cover rounded-2xl"
+    draggable={false}
+/>
 
               {/* Dynamic Layer Specs */}
               <AnimatePresence mode="wait">
@@ -187,6 +215,9 @@ export const RoofEngineering: React.FC = () => {
                       <h3 className="font-display text-2xl font-bold text-[#121212] mt-1">
                         {activeLayer.name}
                       </h3>
+                      <p className="text-xs text-[#F97316] font-mono mt-2">
+  Frames: {activeLayer.startFrame} - {activeLayer.endFrame}
+</p>
                     </div>
                     <div className="px-3 py-1.5 rounded-lg bg-[#F97316]/10 text-xs font-mono text-[#F97316] font-bold">
                       Layer 0{activeLayer.id} Selected

@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MagneticButton } from "../ui/MagneticButton";
 import { VideoModal } from "../ui/VideoModal";
 
+
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -53,8 +54,7 @@ const heroScenes = [
 
 export const Hero: React.FC<HeroProps> = ({ onOpenInspectionModal }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+const canvasRef = useRef<HTMLCanvasElement>(null);
   const [frames, setFrames] = useState<string[]>([]);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -239,10 +239,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInspectionModal }) => {
   return (
     <div ref={containerRef} className="relative w-full h-screen bg-[#0B0F14] overflow-hidden">
       {/* Apple-Style HTML5 Canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 z-0 block w-full h-full object-cover pointer-events-none"
-      />
+     <canvas
+    ref={canvasRef}
+    className="absolute inset-0 z-0 block w-full h-full object-cover pointer-events-none"
+/>
 
       {/* Dark Overlay for Hero */}
 <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#0B0F14]/35 via-[#0B0F14]/15 to-transparent pointer-events-none" />      <div className="absolute inset-0 z-[1] bg-[radial-gradient(circle_at_center,_transparent_0%,_#0B0F14_100%)] opacity-70 pointer-events-none" />
