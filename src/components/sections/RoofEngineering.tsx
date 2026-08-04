@@ -6,13 +6,19 @@ import { Layers, ShieldCheck, Cpu, Wind, Thermometer, Sparkles, ChevronRight } f
 
 interface LayerDetail {
   id: number;
+
+  startFrame: number;
+  endFrame: number;
+
   name: string;
   category: string;
-  specs: string;
-  windRating: string;
-  lifespan: string;
-  efficiency: string;
   description: string;
+  icon: React.ReactNode;
+  color: string;
+  stats: {
+    label: string;
+    value: string;
+  }[];
 }
 
 const engineeringLayers: LayerDetail[] = [
